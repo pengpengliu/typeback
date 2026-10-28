@@ -8,10 +8,16 @@ CONTENTS_DIR="$APP_DIR/Contents"
 MACOS_DIR="$CONTENTS_DIR/MacOS"
 RESOURCES_DIR="$CONTENTS_DIR/Resources"
 
+# ARCHS="arm64 x86_64" builds a universal binary; defaults to the host arch.
+BUILD_ARGS=(-c release)
+for arch in ${ARCHS:-}; do
+    BUILD_ARGS+=(--arch "$arch")
+done
+
 cd "$ROOT_DIR"
 
-swift build -c release --product "$APP_NAME"
-BIN_DIR="$(swift build -c release --show-bin-path)"
+swift build "${BUILD_ARGS[@]}" --product "$APP_NAME"
+BIN_DIR="$(swift build "${BUILD_ARGS[@]}" --show-bin-path)"
 
 rm -rf "$APP_DIR"
 mkdir -p "$MACOS_DIR" "$RESOURCES_DIR"

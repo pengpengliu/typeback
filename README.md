@@ -44,6 +44,23 @@ scripts/build-app.sh
 dist/Typeback.app
 ```
 
+构建 Intel + Apple Silicon 通用版本：
+
+```bash
+ARCHS="arm64 x86_64" scripts/build-app.sh
+```
+
+### GitHub Actions
+
+`.github/workflows/build.yml` 会在推送到 `main` 和提交 PR 时运行测试、构建通用 `.app`，并把 `Typeback.zip` 作为 workflow artifact 上传。
+
+推送 `v*` 标签时会额外用标签号设置版本，并创建 GitHub Release：
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
 第一版只覆盖本地开发构建和标准 Xcode 签名流程，不包含 Developer ID 分发。
 
 ## 手动验证清单
