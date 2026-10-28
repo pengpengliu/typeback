@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Test
         run: swift test
@@ -34,7 +34,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent dist/Typeback.app dist/Typeback.zip
           lipo -info dist/Typeback.app/Contents/MacOS/Typeback
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: Typeback
           path: dist/Typeback.zip
